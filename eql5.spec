@@ -7,9 +7,16 @@ License:        MIT
 URL:            https://git.casenave.fr/raz/eql5.git
 Source0:        https://git.casenave.fr/raz/eql5/repository/archive.tar.gz?ref=0acfa4f1fe00e992b0cb8275f999a032b0d7832d
 
-BuildRequires:  qmake
 BuildRequires:  ecl
+BuildRequires:  readline-devel
+BuildRequires:  qt5-qtprintsupport-devel
+BuildRequires:  qt5-qttools-qtuitools-devel
+BuildRequires:  qt5-qttools-qthelp-devel
 Requires:       ecl
+Requires:       readline
+Requires:       qt5-qtprintsupport
+Requires:       qt5-qttools-qtuitools
+Requires:       qt5-qttools-qthelp
 Requires(post): coreutils
 Requires(postun): coreutils
 
@@ -33,7 +40,7 @@ qmake eql_lib.pro &&
 make &&
 qmake eql_exe.pro &&
 make &&
-eql5 make-eql-lib-wrappers.lisp &&
+LD_LIBRARY_PATH=../ ../eql5 -platform minimal make-eql-lib-wrappers.lisp &&
 touch tmp/eql.o &&
 qmake eql_lib.pro &&
 make &&
@@ -47,13 +54,12 @@ qmake module_sql.pro &&
 make &&
 qmake module_svg.pro &&
 make &&
-qmake module_webengine.pro &&
-make
 cd ..
 
 %install
-install libeql5* %{_libdir}
-install eql5 %{_bindir}
+mkdir -p $RPM_BUILD_ROOT%{_libdir} $RPM_BUILD_ROOT%{_bindir}
+install libeql5* $RPM_BUILD_ROOT%{_libdir}
+install eql5 $RPM_BUILD_ROOT%{_bindir}
 
 %post
 /sbin/ldconfig
@@ -64,7 +70,7 @@ install eql5 %{_bindir}
 %files
 %{_bindir}/eql5
 %{_libdir}/libeql5*
-%doc LICENSE-1-MIT LICENSE-2-MAKE-QIMAGE.txt
+%doc LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
 * Sat Apr 15 2017 Renaud Casenave-Péré <renaud@casenave-pere.fr>
