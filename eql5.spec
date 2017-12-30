@@ -1,6 +1,6 @@
 Name:           eql5
 Version:        17.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
 License:        MIT
@@ -39,16 +39,18 @@ ecl -compile ecl-readline.lisp
 cd ../src
 
 ecl -shell make.lisp &&
-qmake eql5.pro &&
-make INSTALL_ROOT=$RPM_BUILD_ROOT &&
-
-LD_LIBRARY_PATH=../ ../eql5 -platform minimal make-wrappers.lisp &&
-touch tmp/eql.o &&
+which eql5 && eql5 -platform minimal make-wrappers.lisp # Need an already installed version in sb2
 qmake eql5.pro &&
 make INSTALL_ROOT=$RPM_BUILD_ROOT &&
 cd ..
 
+cd lib
+which eql5 && eql5 -platform minimal make-lib.lisp # Need an already installed version in sb2
+cd ..
+
 %install
+mkdir -p $RPM_BUILD_ROOT/usr/share/eql5/lib
+install lib/*.fas $RPM_BUILD_ROOT/usr/share/eql5/lib/
 cd src
 make install INSTALL_ROOT=$RPM_BUILD_ROOT
 cd ..
@@ -63,9 +65,13 @@ cd ..
 %{_bindir}/eql5
 %{_libdir}/libeql5*
 %{_includedir}/eql5/*
+%{_datadir}/eql5/*
 %doc LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
+* Sun Dec 31 2017 Renaud Casenave-Péré <renaud@casenave-pere.fr>
+- Fix missing wrappers and lib files
+
 * Sat Jun 3 2017 Renaud Casenave-Péré <renaud@casenave-pere.fr>
 - Merge upstream and use upstream version number scheme
 
