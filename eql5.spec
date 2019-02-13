@@ -9,19 +9,31 @@ URL:            https://git.casenave.fr/raz/eql5.git
 Source:        %{name}-%{version}.tgz
 
 BuildRequires:  ecl
+BuildRequires:  gcc-c++
 BuildRequires:  readline-devel
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtprintsupport-devel
+BuildRequires:  qt5-qtmultimedia-devel
+BuildRequires:  qt5-qtsql-devel
+BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qttools-qtuitools-devel
 BuildRequires:  qt5-qttools-qthelp-devel
 BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  libqtwebkit5-devel
+BuildRequires:  libqtwebkit5-widgets-devel
 Requires:       ecl
+Requires:       gcc-c++
 Requires:       readline
 Requires:       qt5-qtcore
 Requires:       qt5-qtprintsupport
+Requires:       qt5-qtmultimedia
+Requires:       qt5-qtsql
+Requires:       qt5-qtdeclarative-qtquick
 Requires:       qt5-qttools-qtuitools
 Requires:       qt5-qttools-qthelp
 Requires:       qt5-qtsvg
+Requires:       libqtwebkit5
+Requires:       libqtwebkit5-widgets
 Requires(post): coreutils
 Requires(postun): coreutils
 
