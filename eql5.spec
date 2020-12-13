@@ -1,5 +1,5 @@
 Name:           eql5
-Version:        19.9.1
+Version:        20.7.1
 Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
@@ -70,6 +70,9 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
+* Sun Dec 13 2020 Renaud Casenave-Péré <renaud@casenave-pere.fr>
+- Adapt for 20.7.1 release
+
 * Mon Oct 21 2019 Renaud Casenave-Péré <renaud@casenave-pere.fr>
 - Adapt for 19.9.1 release
 - Remove libs compilation
