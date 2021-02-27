@@ -1,6 +1,6 @@
 Name:           eql5
 Version:        20.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
 License:        MIT
@@ -8,7 +8,7 @@ URL:            https://git.casenave.fr/raz/eql5.git
 #Source0:        https://git.casenave.fr/raz/eql5/repository/archive.tar.gz?ref=0acfa4f1fe00e992b0cb8275f999a032b0d7832d
 Source:        %{name}-%{version}.tgz
 
-BuildRequires:  ecl
+BuildRequires:  ecl = 21.2.1
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  readline-devel
@@ -21,7 +21,7 @@ BuildRequires:  qt5-qttools-qtuitools-devel
 BuildRequires:  qt5-qttools-qthelp-devel
 BuildRequires:  libqtwebkit5-devel
 BuildRequires:  libqtwebkit5-widgets-devel
-Requires:       ecl
+Requires:       ecl = 21.2.1
 Requires:       gcc-c++
 Requires:       readline
 Requires:       qt5-qtcore
