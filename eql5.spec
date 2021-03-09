@@ -1,6 +1,6 @@
 Name:           eql5
-Version:        20.7.1
-Release:        2%{?dist}
+Version:        21.3.1
+Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
 License:        MIT
@@ -16,6 +16,7 @@ BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtprintsupport-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsql-devel
+BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 BuildRequires:  qt5-qttools-qtuitools-devel
 BuildRequires:  qt5-qttools-qthelp-devel
@@ -28,6 +29,7 @@ Requires:       qt5-qtcore
 Requires:       qt5-qtprintsupport
 Requires:       qt5-qtmultimedia
 Requires:       qt5-qtsql
+Requires:       qt5-qtsvg
 Requires:       qt5-qtdeclarative-qtquick
 Requires:       qt5-qttools-qtuitools
 Requires:       qt5-qttools-qthelp
@@ -49,8 +51,9 @@ EQL5 is a framework to use Qt5 with common-lisp using ecl
 %build
 cd src
 ecl -shell make.lisp &&
+qmake -set EQL_VERSION %{version} &&
 qmake eql5.pro &&
-make INSTALL_ROOT=$RPM_BUILD_ROOT
+make -j 4 INSTALL_ROOT=$RPM_BUILD_ROOT
 
 %install
 cd src
@@ -70,6 +73,10 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
+* Wed Mar 10 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr>
+- Add static library build step
+- New upstream release
+
 * Sun Dec 13 2020 Renaud Casenave-Péré <renaud@casenave-pere.fr>
 - Adapt for 20.7.1 release
 
