@@ -1,5 +1,5 @@
 Name:           eql5
-Version:        21.3.3
+Version:        21.3.4
 Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
@@ -64,6 +64,9 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
+* Thu Mar 25 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr> 21.3.4-1
+- New upstream release
+
 * Wed Mar 10 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr> 21.3.3-1
 - Add static library build step
 - New upstream release
