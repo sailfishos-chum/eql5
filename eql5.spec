@@ -1,11 +1,10 @@
 Name:           eql5
-Version:        21.3.1
+Version:        21.3.3
 Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
 License:        MIT
 URL:            https://git.casenave.fr/raz/eql5.git
-#Source0:        https://git.casenave.fr/raz/eql5/repository/archive.tar.gz?ref=0acfa4f1fe00e992b0cb8275f999a032b0d7832d
 Source:        %{name}-%{version}.tgz
 
 BuildRequires:  ecl = 21.2.1
@@ -13,28 +12,16 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  readline-devel
 BuildRequires:  qt5-qtcore-devel
-BuildRequires:  qt5-qtprintsupport-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsql-devel
-BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
-BuildRequires:  qt5-qttools-qtuitools-devel
-BuildRequires:  qt5-qttools-qthelp-devel
-BuildRequires:  libqtwebkit5-devel
-BuildRequires:  libqtwebkit5-widgets-devel
 Requires:       ecl = 21.2.1
 Requires:       gcc-c++
 Requires:       readline
 Requires:       qt5-qtcore
-Requires:       qt5-qtprintsupport
 Requires:       qt5-qtmultimedia
 Requires:       qt5-qtsql
-Requires:       qt5-qtsvg
 Requires:       qt5-qtdeclarative-qtquick
-Requires:       qt5-qttools-qtuitools
-Requires:       qt5-qttools-qthelp
-Requires:       libqtwebkit5
-Requires:       libqtwebkit5-widgets
 Requires(post): coreutils
 Requires(postun): coreutils
 
@@ -51,7 +38,8 @@ EQL5 is a framework to use Qt5 with common-lisp using ecl
 %build
 cd src
 ecl -shell make.lisp &&
-qmake -set EQL_VERSION %{version} &&
+export SAILFISH=sailfish &&
+export EQL_VERSION=%{version} &&
 qmake eql5.pro &&
 make -j 4 INSTALL_ROOT=$RPM_BUILD_ROOT
 
@@ -67,13 +55,16 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 
 %files
 %{_bindir}/eql5
-%{_libdir}/libeql5*
+%{_libdir}/libeql5.so*
+%{_libdir}/libeql5.a
+%{_libdir}/libeql5.prl
+%{_libdir}/libeql5_*.so*
 %{_includedir}/eql5/*
 %doc examples
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
-* Wed Mar 10 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr>
+* Wed Mar 10 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr> 21.3.3-1
 - Add static library build step
 - New upstream release
 
