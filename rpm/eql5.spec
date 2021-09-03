@@ -14,6 +14,7 @@ BuildRequires:  readline-devel
 BuildRequires:  qt5-qtcore-devel
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsql-devel
+BuildRequires:  qt5-qtwidgets-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
 Requires:       ecl = 21.2.1
 Requires:       gcc-c++
@@ -21,6 +22,7 @@ Requires:       readline
 Requires:       qt5-qtcore
 Requires:       qt5-qtmultimedia
 Requires:       qt5-qtsql
+Requires:       qt5-qtwidgets
 Requires:       qt5-qtdeclarative-qtquick
 Requires(post): coreutils
 Requires(postun): coreutils
@@ -33,7 +35,7 @@ EQL5 is a framework to use Qt5 with common-lisp using ecl
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}/EQL5
 
 %build
 cd src

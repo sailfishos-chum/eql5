@@ -1,0 +1,3 @@
+[submodule "EQL5"]
+	path = EQL5
+	url = https://gitlab.com/eql/EQL5.git
