@@ -1,5 +1,5 @@
 Name:           eql5
-Version:        21.3.4
+Version:        24.2.1
 Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
@@ -7,7 +7,7 @@ License:        MIT
 URL:            https://git.casenave.fr/raz/eql5.git
 Source:        %{name}-%{version}.tgz
 
-BuildRequires:  ecl = 21.2.1
+BuildRequires:  ecl = 24.5.10
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  readline-devel
@@ -16,7 +16,7 @@ BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsql-devel
 BuildRequires:  qt5-qtwidgets-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
-Requires:       ecl = 21.2.1
+Requires:       ecl = 24.5.10
 Requires:       gcc-c++
 Requires:       readline
 Requires:       qt5-qtcore
@@ -60,12 +60,15 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 %{_libdir}/libeql5.so*
 %{_libdir}/libeql5.a
 %{_libdir}/libeql5.prl
-%{_libdir}/libeql5_*.so*
+%{_libdir}/eql5/libeql5_*.so*
 %{_includedir}/eql5/*
 %doc examples
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
 
 %changelog
+* Sun Jun 29 2025 Renaud Casenave-Péré <renaud@casenave-pere.fr> 24.2.1-1
+- New upstream release
+
 * Thu Mar 25 2021 Renaud Casenave-Péré <renaud@casenave-pere.fr> 21.3.4-1
 - New upstream release
 
