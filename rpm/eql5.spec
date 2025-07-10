@@ -1,5 +1,5 @@
 Name:           eql5
-Version:        24.2.1
+Version:        24.2.2
 Release:        1%{?dist}
 Summary:        Qt5 bindings for lisp using ecl
 
@@ -16,23 +16,48 @@ BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtsql-devel
 BuildRequires:  qt5-qtwidgets-devel
 BuildRequires:  qt5-qtdeclarative-qtquick-devel
-Requires:       ecl = 24.5.10
-Requires:       gcc-c++
+Requires:       %{name}-devel
 Requires:       readline
-Requires:       qt5-qtcore
-Requires:       qt5-qtmultimedia
-Requires:       qt5-qtsql
-Requires:       qt5-qtwidgets
-Requires:       qt5-qtdeclarative-qtquick
 Requires(post): coreutils
 Requires(postun): coreutils
 
 %description
 EQL5 is a framework to use Qt5 with common-lisp using ecl
 
-# no -devel package for header files is split off
-# since they are required by the main package
+%if "%{?vendor}" == "chum"
+Title: EQL5
+Type: other
+DeveloperName: P. Ruetz
+Categories:
+- Library
+Custom:
+PackagingRepo: https://github.com/sailfishos-chum/eql5
+Links:
+Homepage: %{url}
+%endif
 
+%package -n lib%{name}
+Summary:  EQL5 -- shared libraries
+Group:    System/Libraries
+Requires:       qt5-qtcore
+Requires:       qt5-qtmultimedia
+Requires:       qt5-qtsql
+Requires:       qt5-qtwidgets
+Requires:       qt5-qtdeclarative-qtquick
+
+%description -n lib%{name}
+This package contains the EQL5 shared libraries.
+
+%package devel
+Summary:  EQL5 -- development files
+Group:    Development/Libraries/C and C++
+Requires: lib%{name} = %{version}
+Requires: ecl-devel
+
+%description devel
+EQL5 is a framework to use Qt5 with common-lisp using ecl
+
+This package contains development files for EQL5.
 
 %prep
 %setup -q -n %{name}-%{version}/EQL5
@@ -40,10 +65,10 @@ EQL5 is a framework to use Qt5 with common-lisp using ecl
 %build
 cd src
 ecl -shell make.lisp &&
-export SAILFISH=sailfish &&
-export EQL_VERSION=%{version} &&
-qmake eql5.pro &&
-make -j 4 INSTALL_ROOT=$RPM_BUILD_ROOT
+    export SAILFISH=sailfish &&
+    export EQL_VERSION=%{version} &&
+    qmake eql5.pro &&
+    make -j 4 INSTALL_ROOT=$RPM_BUILD_ROOT
 
 %install
 cd src
@@ -56,16 +81,25 @@ make install INSTALL_ROOT=$RPM_BUILD_ROOT
 /sbin/ldconfig
 
 %files
-%{_bindir}/eql5
-%{_libdir}/libeql5.so*
-%{_libdir}/libeql5.a
-%{_libdir}/libeql5.prl
-%{_libdir}/eql5/libeql5_*.so*
-%{_includedir}/eql5/*
-%doc examples
 %license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
+%{_bindir}/eql5
+%doc examples
+
+%files -n lib%{name}
+%license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
+%{_libdir}/libeql5.so.*
+%{_libdir}/libeql5_*.so
+
+%files devel
+%license LICENSE-1.MIT LICENSE-2-MAKE-QIMAGE.txt
+%{_libdir}/libeql5.so
+%{_includedir}/eql5/*
 
 %changelog
+* Thu Jul 10 2025 Renaud Casenave-Péré <renaud@casenave-pere.fr> 24.2.2-1
+- Revert submodule files location
+- Split into main/lib/devel packages
+
 * Sun Jun 29 2025 Renaud Casenave-Péré <renaud@casenave-pere.fr> 24.2.1-1
 - New upstream release
 
